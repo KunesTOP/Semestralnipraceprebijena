@@ -18,7 +18,7 @@ import java.util.Date
 import java.util.Locale
 
 class Uroven1 : AppCompatActivity() {
-
+    private val playerCardsIndices = mutableMapOf<ImageView, Int>()
     lateinit var iv_card1: ImageView
     lateinit var iv_card2: ImageView // Karta AI
     lateinit var iv_card3: ImageView
@@ -30,6 +30,7 @@ class Uroven1 : AppCompatActivity() {
     lateinit var tv_war: TextView
     lateinit var b_deal: Button
     lateinit var random: Random
+    var i = 0
     var player1 = 0
     var player2 = 0
     var cardsArray = intArrayOf(
@@ -45,7 +46,7 @@ class Uroven1 : AppCompatActivity() {
         R.drawable.hearts12,
         R.drawable.hearts13,
         R.drawable.hearts14,
-        R.drawable.hearts15
+        R.drawable.hearts15,R.drawable.diamond
     )
 
     var aiCardValue: Int = 0
@@ -67,9 +68,16 @@ class Uroven1 : AppCompatActivity() {
         b_deal = findViewById(R.id.b_deal)
 
         setupGame()
+        setupCardClickListener(iv_card1, iv_card2)
+        setupCardClickListener(iv_card3, iv_card2)
+        setupCardClickListener(iv_card4, iv_card2)
+        setupCardClickListener(iv_card5, iv_card2)
+        setupCardClickListener(iv_card6, iv_card2)
+
         val b_end = findViewById<Button>(R.id.b_end)
         b_end.setOnClickListener {
             showScoreAndSave()
+            finish()
         }
         b_deal.setOnClickListener {
             setupGame()
@@ -117,23 +125,29 @@ class Uroven1 : AppCompatActivity() {
         val file = File(filesDir, "score.json")
         file.writeText(json)
     }
-    private fun setupCardClickListener(cardView: ImageView) {
-        cardView.setOnClickListener {
-            val playerCardIndex = random.nextInt(cardsArray.size)
+    private fun setupCardClickListener(playerCardView: ImageView, aiCardView: ImageView) {
+        playerCardView.setOnClickListener {
+            val playerCardIndex = playerCardsIndices[playerCardView] ?: return@setOnClickListener
             val playerCardValue = cardValues[cardsArray[playerCardIndex]]
-            setCardImage(playerCardIndex, cardView)
 
-            // Vygenerovat novou kartu pro AI
+            // Použijte aktuální hodnotu karty AI pro porovnání
+            val currentAiCardValue = cardValues[cardsArray[aiCardValue]]
+
+            if (playerCardValue != null) {
+                if (currentAiCardValue != null) {
+                    compareCards(playerCardValue, currentAiCardValue)
+                }
+            }
+
+            // Generujte novou hodnotu pro AI kartu
             aiCardValue = random.nextInt(cardsArray.size)
-            setCardImage(aiCardValue, iv_card2)
+            val newAiCardValue = cardValues[cardsArray[aiCardValue]]
+            setCardImage(aiCardValue, aiCardView)
 
-            compareCards(playerCardIndex, aiCardValue)
-            cardView.visibility = View.INVISIBLE
-
-            // Vypsat hodnoty karet do konzole pro debugování
-            Log.d("GameDebug", "Player Card Value: $playerCardValue, AI Card Value: ${cardValues[cardsArray[aiCardValue]]}")
+            playerCardView.visibility = View.INVISIBLE // Skrytí kliknuté karty hráče
         }
     }
+
     val cardValues = mapOf(
         R.drawable.hearts2 to 2,
         R.drawable.hearts3 to 3,
@@ -144,55 +158,65 @@ class Uroven1 : AppCompatActivity() {
         R.drawable.hearts8 to 8,
         R.drawable.hearts9 to 9,
         R.drawable.hearts10 to 10,
-
+        R.drawable.diamond to 15,
         R.drawable.hearts12 to 12,
         R.drawable.hearts13 to 13,
         R.drawable.hearts14 to 14,
 
         R.drawable.hearts15 to 15
     )
-    private fun compareCards(playerCardIndex: Int, aiCardIndex: Int) {
-        val playerCardValue = cardValues[cardsArray[playerCardIndex]]
-        val aiCardValue = cardValues[cardsArray[aiCardIndex]]
+    private fun compareCards(playerCardValue: Int, aiCardValue: Int)  {
+
 
         if (playerCardValue!! > aiCardValue!!) {
+            if (i!=0)
+            {
+                player1 = player1 + i
+                i = 0
+
+            }
             player1++
             tv_player1.text = "Hrac 1: $player1"
-
         } else if (playerCardValue < aiCardValue) {
+           if (i!=0)
+           {
 
+               i =0
+           }
         } else {
             tv_war.visibility = View.VISIBLE
+             i++
+            // Zde chybí logika pro remízu.
         }
     }
 
+
     private fun setupGame() {
+        val playerCardViews = listOf(iv_card1, iv_card3, iv_card4, iv_card5, iv_card6)
+        playerCardViews.forEach { cardView ->
+            val cardIndex = random.nextInt(cardsArray.size)
+            setCardImage(cardIndex, cardView)
+            playerCardsIndices[cardView] = cardIndex // Uložení indexu karty hráče
+        }
+
+        // Nastavení karet AI
         aiCardValue = random.nextInt(cardsArray.size)
         setCardImage(aiCardValue, iv_card2)
-        aiCardValue = random.nextInt(cardsArray.size)
-        setCardImage(aiCardValue, iv_card1)
-        aiCardValue = random.nextInt(cardsArray.size)
-        setCardImage(aiCardValue, iv_card3)
-        aiCardValue = random.nextInt(cardsArray.size)
-        setCardImage(aiCardValue, iv_card4)
-        aiCardValue = random.nextInt(cardsArray.size)
-        setCardImage(aiCardValue, iv_card5)
-        aiCardValue = random.nextInt(cardsArray.size)
-        setCardImage(aiCardValue, iv_card6)
 
-
-        setupCardClickListener(iv_card1)
-        setupCardClickListener(iv_card3)
-        setupCardClickListener(iv_card4)
-        setupCardClickListener(iv_card5)
-        setupCardClickListener(iv_card6)
-
-        iv_card1.visibility = View.VISIBLE
-        iv_card3.visibility = View.VISIBLE
+        // Nastavení posluchačů kliknutí
+        setupCardClickListener(iv_card1, iv_card2)
+        setupCardClickListener(iv_card3, iv_card2)
+        setupCardClickListener(iv_card4, iv_card2)
+        setupCardClickListener(iv_card5, iv_card2)
+        setupCardClickListener(iv_card6, iv_card2)
         iv_card4.visibility = View.VISIBLE
+        iv_card3.visibility = View.VISIBLE
+        iv_card1.visibility = View.VISIBLE
         iv_card5.visibility = View.VISIBLE
         iv_card6.visibility = View.VISIBLE
-        tv_war.visibility = View.GONE
+        tv_war.visibility = View.INVISIBLE
+
+        // ... a tak dále pro ostatní karty ...
     }
 
     private fun setCardImage(cardIndex: Int, imageView: ImageView) {
