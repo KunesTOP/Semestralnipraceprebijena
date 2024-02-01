@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+android:name=".uroven1"
+    android:padding="20dp"
+    tools:context=".View.MainActivity">
+    <LinearLayout
+        android:id="@+id/lay_cards"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/b_deal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lay_cards"
+        android:layout_marginTop="258dp"
+        android:text="Deal"
+        tools:layout_editor_absoluteX="323dp"
+        tools:layout_editor_absoluteY="198dp" />
+
+    <LinearLayout
+        android:id="@+id/lay_points"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_war"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/b_deal"
+        android:layout_marginTop="4dp"
+        android:text="WAR"
+        android:textSize="72sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="-5dp"
+        tools:layout_editor_absoluteY="96dp" />
+
+    <ImageView
+        android:id="@+id/iv_card2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lay_points"
+        android:layout_marginBottom="58dp"
+        android:layout_weight="1"
+
+        android:src="@drawable/card_back"
+        tools:layout_editor_absoluteX="156dp"
+        tools:layout_editor_absoluteY="96dp" />
+
+    <ImageView
+        android:id="@+id/iv_card1"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:scaleType="centerInside"
+        android:src="@drawable/card_back"
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="455dp" />
+
+    <ImageView
+        android:id="@+id/iv_card3"
+        android:layout_width="84dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="243dp"
+        android:layout_weight="1"
+        android:scaleType="centerInside"
+        android:src="@drawable/card_back"
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="455dp" />
+
+
+    <ImageView
+        android:id="@+id/iv_card6"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="311dp"
+        android:layout_weight="1"
+        android:scaleType="centerInside"
+        android:src="@drawable/card_back"
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="455dp" />
+
+    <ImageView
+        android:id="@+id/iv_card5"
+        android:layout_width="87dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="129dp"
+        android:layout_marginEnd="175dp"
+        android:layout_weight="1"
+        android:scaleType="centerInside"
+        android:src="@drawable/card_back"
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="455dp" />
+
+    <ImageView
+        android:id="@+id/iv_card4"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="195dp"
+        android:layout_marginEnd="103dp"
+        android:layout_weight="1"
+        android:scaleType="centerInside"
+        android:src="@drawable/card_back"
+        tools:layout_editor_absoluteX="99dp"></ImageView>
+
+    <TextView
+        android:id="@+id/tv_player1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_card1"
+        android:layout_marginBottom="-57dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Gambler 1: 0"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="35dp" />
+
+    <TextView
+        android:id="@+id/tv_player2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/b_deal"
+        android:layout_marginBottom="222dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Player 2: 0"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        tools:layout_editor_absoluteX="22dp"
+        tools:layout_editor_absoluteY="682dp" />
+
+    <Button
+        android:id="@+id/b_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/b_deal"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-1dp"
+        android:layout_marginEnd="99dp"
+        android:text="Konec" />
+
+</RelativeLayout>
